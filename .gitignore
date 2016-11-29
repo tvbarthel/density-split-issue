@@ -1,0 +1,23 @@
+.gradle
+.idea/
+*.apk
+captures/
+
+.DS_Store
+/local.properties
+/gradle.properties
+*.iml
+build/
+out/
+captures/
+
+# jni files
+*.o
+*.o.d
+*.db
+
+*.jks
+config/signing/signing.gradle
+config/signing/*.jks
+
+*.hprof
