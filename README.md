@@ -8,6 +8,9 @@ When using the density APK split, the manifest merger seems to add three extra p
 <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 ```
 
+# Bug tracker
+https://code.google.com/p/android/issues/detail?id=197928
+
 # Step to reproduce the issue
 
 * Execute `gradlew assembleRelease`
@@ -103,3 +106,5 @@ IMPLIED from ...\split-density-bug\app\src\main\AndroidManifest.xml:2:1-20:12 re
 </manifest>
 ```
 
+# Temporary solution
+https://github.com/tvbarthel/density-split-issue/pull/1
