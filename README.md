@@ -1,6 +1,6 @@
 # Issue: density APK splits
 
-When using the density APK split, the manifest merger seems to add three extra permissions even if there are not declared in the app manifest.
+When using the density APK split, the manifest merger seems to add three extra permissions even if they are not declared in the app manifest.
 
 ```xml
 <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
