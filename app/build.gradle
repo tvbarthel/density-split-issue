@@ -1,6 +1,16 @@
 apply plugin: 'com.android.application'
 
-import com.android.build.OutputFile;
+
+def appBaseVersionCode = 1
+def appVersionName = "1.0"
+
+def makeVersionCode = { densityName ->
+    def densityCodes = [all: 1, mdpi: 2, hdpi: 3, xhdpi: 4, xxhdpi: 5, xxxhdpi: 6]
+
+    def key = densityName == null ? "all" : densityName
+    return densityCodes.get(key) * 1_000_000 + appBaseVersionCode
+}
+
 
 android {
     compileSdkVersion 25
@@ -9,8 +19,7 @@ android {
         applicationId "fr.tvbarthel.experiment.splitdensitybug"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionName appVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         resConfigs 'en'
     }
@@ -22,13 +31,45 @@ android {
         }
     }
 
-    splits {
-        density {
-            enable true
-            reset()
-            include 'mdpi', 'hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi'
-            compatibleScreens 'small', 'normal', 'large', 'xlarge'
+    flavorDimensions 'density'
+
+    productFlavors {
+
+        universal {
+            dimension 'density'
+            versionCode makeVersionCode()
         }
+
+        mdpi {
+            dimension 'density'
+            resConfigs 'mdpi'
+            versionCode makeVersionCode('mdpi')
+        }
+
+        hdpi {
+            dimension 'density'
+            resConfigs 'hdpi'
+            versionCode makeVersionCode('hdpi')
+        }
+
+        xhdpi {
+            dimension 'density'
+            resConfigs 'xhdpi'
+            versionCode makeVersionCode('xhdpi')
+        }
+
+        xxhdpi {
+            dimension 'density'
+            resConfigs 'xxhdpi'
+            versionCode makeVersionCode('xxhdpi')
+        }
+
+        xxxhdpi {
+            dimension 'density'
+            resConfigs 'xxxhdpi'
+            versionCode makeVersionCode('xxxhdpi')
+        }
+
     }
 }
 
@@ -39,16 +80,4 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.2.0'
     testCompile 'junit:junit:4.12'
-}
-
-ext {
-    densityCodes = [all: 1, mdpi: 2, hdpi: 3, xhdpi: 4, xxhdpi: 5, xxxhdpi: 6]
-}
-
-android.applicationVariants.all { variant ->
-    // assign different version code for each output
-    variant.outputs.each { output ->
-        def key = output.getFilter(OutputFile.DENSITY) == null ? "all" : output.getFilter(OutputFile.DENSITY)
-        output.versionCodeOverride = project.ext.densityCodes.get(key) * 1_000_000 + android.defaultConfig.versionCode
-    }
 }
