@@ -1,3 +1,13 @@
+# Status: Fixed
+
+This repository was aimed at reproducing a bug reported that is now fixed.
+
+https://issuetracker.google.com/u/2/issues/37076144
+
+The sample project has been updated with the version `3.0.1` of the `com.android.tools.build:gradle`
+plugin and the version `27.0.3` of the build tools version. With these changes, the issue is no more replicable.
+The fixed is confirmed :)
+
 # Issue: density APK splits
 
 When using the density APK split, the manifest merger seems to add three extra permissions even if they are not declared in the app manifest.
